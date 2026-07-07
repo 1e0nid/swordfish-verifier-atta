@@ -7,6 +7,7 @@ from src.client.http_client import SwordfishHttpClient
 from src.verifier.validator import SwordfishValidator
 from src.fuzzer.fuzz_engine import SwordfishFuzzer
 from src.reporter.json_reporter import SwordfishJsonReporter
+from src.verifier.discovery import SwordfishDiscoverer
 
 # Настройка глобального логирования в консоль
 logging.basicConfig(
@@ -33,16 +34,20 @@ async def main():
         # 3. Запуск сетевой сессии и выполнения тестов
         async with SwordfishHttpClient(config.emulator) as client:
             
-            # Позитивное тестирование (Валидация схемы контракта)
+            # ШАГ ДИСКАВЕРИ: собираем реальную карту эндпоинтов эмулятора
+            discoverer = SwordfishDiscoverer(client)
+            discovered_endpoints = await discoverer.discover()
+            logger.info(f"Обнаружение завершено. Живые типы ресурсов: {list(discovered_endpoints.keys())}")
+            
+            # Позитивное тестирование (Передаем карту живых ручек)
             validator = SwordfishValidator(config, rules, client)
             logger.info("Запуск позитивного сценария проверки...")
-            val_results = await validator.validate_all()
+            val_results = await validator.validate_all(discovered_endpoints)
             
-            # Негативное тестирование (Фаззинг)
+            # Негативное тестирование (Фаззинг) (Передаем карту живых ручек)
             fuzzer = SwordfishFuzzer(config, rules, client)
             logger.info("Запуск негативного сценария (фаззинга)...")
-            fuzz_results = await fuzzer.run_fuzzing()
-
+            fuzz_results = await fuzzer.run_fuzzing(discovered_endpoints)
         # 4. Формирование и сохранение результатов
         reporter = SwordfishJsonReporter(config)
         report_path = reporter.generate_report(val_results, fuzz_results)

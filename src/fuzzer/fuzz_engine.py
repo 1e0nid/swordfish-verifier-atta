@@ -7,121 +7,94 @@ from src.client.http_client import SwordfishHttpClient
 logger = logging.getLogger("swordfish_fuzzer")
 
 class SwordfishFuzzer:
+    """
+    Модуль фаззинга, адаптированный под обработку любых обнаруженных урлов.
+    """
     def __init__(self, config: AppConfig, rules: SpecificationRules, client: SwordfishHttpClient):
         self.config = config
         self.rules = rules
         self.client = client
         self.results: List[Dict[str, Any]] = []
 
-    async def run_fuzzing(self) -> List[Dict[str, Any]]:
+    def _find_res_rule(self, res_name: str):
+        if res_name in self.rules.resources:
+            return self.rules.resources[res_name]
+        for key, rule in self.rules.resources.items():
+            if key.lower() in res_name.lower() or res_name.lower() in key.lower():
+                return rule
+        return None
+
+    async def run_fuzzing(self, discovered_endpoints: Dict[str, List[str]]) -> List[Dict[str, Any]]:
         self.results = []
-        resources_to_fuzz = self.rules.resources
 
-        active_filter = self.config.validator.resources_filter
-        if active_filter:
-            resources_to_fuzz = {k: v for k, v in resources_to_fuzz.items() if k in active_filter}
-
-        logger.info(f"Запуск фаззинг-тестов для ресурсов: {list(resources_to_fuzz.keys())}")
-
-        for res_name, res_rule in resources_to_fuzz.items():
-            await self._fuzz_http_methods(res_rule)
-            await self._fuzz_payload_mutations(res_rule)
+        for res_name, urls in discovered_endpoints.items():
+            if self.config.validator.resources_filter and res_name not in self.config.validator.resources_filter:
+                continue
+                
+            res_rule = self._find_res_rule(res_name)
+            
+            for url in urls:
+                if res_rule:
+                    await self._fuzz_http_methods(res_rule, url)
+                    await self._fuzz_payload_mutations(res_rule, url)
+                else:
+                    # Если схемы нет, мы все равно фаззим методы (базовая уязвимость на 405 Method Not Allowed)
+                    fake_rule = ResourceRule(resource_name=res_name, endpoint_path=url, allowed_methods=["GET"])
+                    await self._fuzz_http_methods(fake_rule, url)
 
         return self.results
 
-    async def _fuzz_http_methods(self, res_rule: ResourceRule):
+    async def _fuzz_http_methods(self, res_rule: ResourceRule, url: str):
         all_methods = ["POST", "PUT", "DELETE", "PATCH"]
         forbidden_methods = [m for m in all_methods if m not in res_rule.allowed_methods]
 
         for method in forbidden_methods:
-            response_packet = await self.client.send_request(
-                method=method, 
-                endpoint=res_rule.endpoint_path, 
-                json_data={"fuzz": "data"}
-            )
+            response_packet = await self.client.send_request(method, url, json_data={"fuzz": "test"})
             
             if response_packet["status_code"] == 500:
                 self._add_result(
                     resource=res_rule.resource_name,
-                    endpoint=res_rule.endpoint_path,
+                    endpoint=url,
                     method=method,
                     check_type="FUZZING_HTTP_METHOD",
                     status="FAIL",
-                    message=f"Сервер вернул код 500 Internal Server Error на запрещенный метод {method}."
+                    message=f"Сервер упал в HTTP 500 при отправке запрещенного метода {method}."
                 )
             else:
                 self._add_result(
                     resource=res_rule.resource_name,
-                    endpoint=res_rule.endpoint_path,
+                    endpoint=url,
                     method=method,
                     check_type="FUZZING_HTTP_METHOD",
                     status="PASS",
-                    message=f"Сервер корректно обработал запрещенный метод {method} (Код: {response_packet['status_code']})."
+                    message=f"Сервер отклонил метод {method} (Код: {response_packet['status_code']})."
                 )
 
-    async def _fuzz_payload_mutations(self, res_rule: ResourceRule):
-        target_method = "POST" if "POST" in res_rule.allowed_methods else "PUT"
+    async def _fuzz_payload_mutations(self, res_rule: ResourceRule, url: str):
+        target_method = "PATCH" if "PATCH" in res_rule.allowed_methods else "POST"
         
-        # Сценарий A: Передача невалидной структуры (массив вместо объекта/словаря)
-        bad_json_structure: List[Any] = [{"malformed": "json_structure_test"}]
-        response = await self.client.send_request(target_method, res_rule.endpoint_path, json_data=bad_json_structure)
-        self._evaluate_fuzz_response(res_rule, target_method, "FUZZING_MALFORMED_STRUCTURE", response, "Передача массива вместо JSON-объекта")
+        bad_json = [{"malformed": "structure"}]
+        response = await self.client.send_request(target_method, url, json_data=bad_json) # type: ignore
+        self._evaluate_fuzz_response(res_rule, url, target_method, "FUZZING_MALFORMED_JSON", response, "Передача массива вместо объекта")
 
         for field_name, field_rule in res_rule.expected_fields.items():
             if "." in field_name:
                 continue
 
-            # Сценарий B: Нарушение типов данных (передаем инт вместо строки или наоборот)
             mutated_payload = {}
             if field_rule.field_type in ["integer", "number"]:
-                mutated_payload[field_name] = "not_a_number_string"
+                mutated_payload[field_name] = "not_a_number"
             else:
-                mutated_payload[field_name] = 123456789
+                mutated_payload[field_name] = 99999
                 
-            response = await self.client.send_request(target_method, res_rule.endpoint_path, json_data=mutated_payload)
-            self._evaluate_fuzz_response(res_rule, target_method, f"FUZZING_INVALID_TYPE [{field_name}]", response, f"Передано невалидное значение типа для поля {field_name}")
+            response = await self.client.send_request(target_method, url, json_data=mutated_payload)
+            self._evaluate_fuzz_response(res_rule, url, target_method, f"FUZZING_TYPE_MISMATCH [{field_name}]", response, f"Подмена типа поля {field_name}")
 
-            # Сценарий C: Выход за числовые границы (если это числовое поле, передаем отрицательное значение)
-            if field_rule.field_type in ["integer", "number"]:
-                boundary_payload = {field_name: -1}
-                response = await self.client.send_request(target_method, res_rule.endpoint_path, json_data=boundary_payload)
-                self._evaluate_fuzz_response(res_rule, target_method, f"FUZZING_BOUNDARY_VALUE [{field_name}]", response, f"Передано отрицательное значение (-1) в числовое поле {field_name}")
-
-            # Сценарий D: Нарушение специфичных форматов (UUID / ISO 8601 Date)
-            if field_rule.data_format:
-                format_payload = {}
-                if field_rule.data_format == "uri-reference":
-                    format_payload[field_name] = "invalid_uri_##_invalid"
-                elif "date" in field_rule.data_format:
-                    format_payload[field_name] = "2026-13-40"
-                else:
-                    format_payload[field_name] = "abc-123-not-valid-format"
-
-                response = await self.client.send_request(target_method, res_rule.endpoint_path, json_data=format_payload)
-                self._evaluate_fuzz_response(res_rule, target_method, f"FUZZING_BAD_FORMAT [{field_name}]", response, f"Передано нарушение формата {field_rule.data_format} в поле {field_name}")
-
-    def _evaluate_fuzz_response(self, res_rule: ResourceRule, method: str, check_type: str, response: Dict[str, Any], scenario_desc: str):
-        """
-        Анализирует ответ эмулятора на фаззинг-запрос. Если сервер упал в 500 — тест провален.
-        """
+    def _evaluate_fuzz_response(self, res_rule: ResourceRule, url: str, method: str, check_type: str, response: Dict[str, Any], scenario_desc: str):
         if response["status_code"] == 500:
-            self._add_result(
-                resource=res_rule.resource_name,
-                endpoint=res_rule.endpoint_path,
-                method=method,
-                check_type=check_type,
-                status="FAIL",
-                message=f"Критический дефект: {scenario_desc}. Сервер упал с ошибкой HTTP 500 Internal Server Error."
-            )
+            self._add_result(res_rule.resource_name, url, method, check_type, "FAIL", f"Сбой: {scenario_desc}. HTTP 500.")
         else:
-            self._add_result(
-                resource=res_rule.resource_name,
-                endpoint=res_rule.endpoint_path,
-                method=method,
-                check_type=check_type,
-                status="PASS",
-                message=f"Тест пройден успешно: {scenario_desc}. Сервер отклонил или безопасно обработал запрос (Код: {response['status_code']})."
-            )
+            self._add_result(res_rule.resource_name, url, method, check_type, "PASS", f"Защита ОК: {scenario_desc}. Код {response['status_code']}.")
 
     def _add_result(self, resource: str, endpoint: str, method: str, check_type: str, status: str, message: str):
         self.results.append({
