@@ -31,7 +31,7 @@ class SwordfishValidator:
         self.results = []
         resources_to_check = self.rules.resources
 
-        active_filter = self.config.validation.resources_filter
+        active_filter = self.config.validator.resources_filter
         if active_filter:
             resources_to_check = {
                 k: v for k, v in resources_to_check.items() if k in active_filter
@@ -39,7 +39,10 @@ class SwordfishValidator:
 
         logger.info(f"Запуск валидации для ресурсов: {list(resources_to_check.keys())}")
 
-
+        for res_name, res_rule in resources_to_check.items():
+            await self._validate_resources(res_rule)
+        
+        return self.results
 
     async def _validate_resources(self, res_rule: ResourceRule):
         response_packet = await self.client.send_request("GET", res_rule.endpoint_path)

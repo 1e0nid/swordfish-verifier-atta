@@ -40,14 +40,4 @@ def load_config(config_path: str = "config/config.yml") -> AppConfig:
         config_data["emulator"]["password"] = auth.get("password")
     
     return AppConfig(**config_data)
-
-
-if __name__ == "__main__":
-    try:
-        cfg = load_config()
-        print("Конфигурация успешно загружена!")
-        print(f"URL эмулятора: {cfg.emulator.url}")
-        print(f"Фильтр ресурсов: {cfg.validator.resources_filter}")
-    except Exception as e:
-        print(f"Ошибка загрузки конфигурации: {e}")
        

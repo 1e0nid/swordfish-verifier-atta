@@ -19,6 +19,8 @@ class JsonSchemaParser(BaseParser):
                 if file_name.endswith(".json"):
                     full_path = os.path.join(target_path, file_name)
                     self._process_file(full_path, spec_rules)
+
+        return spec_rules
             
 
     def _process_file(self, file_path: str, spec_rules: SpecificationRules):
@@ -34,7 +36,7 @@ class JsonSchemaParser(BaseParser):
             if res_def.get("type") != "object" or "properties" not in res_def:
                 continue
 
-            endpoint_path = f"/readfish/v1/{res_name}"
+            endpoint_path = f"/redfish/v1/{res_name}"
 
             required_fileds = res_def.get("required", [])
             properties = res_def.get("properties", {})

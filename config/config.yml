@@ -1,12 +1,12 @@
 emulator:
-  url: "http://127.0.0.1:8000"
+  url: "http://127.0.0.1:8080"
   timeout: 10
   auth:
     username: "admin"
-    password: "secret_password"
+    password: "admin"
 
 storage:
-  specification_path: "data/Swordfish_Specification_v11.2.9.pdf"
+  specification_path: "data/Swordfish_v1.2.9_Schema/json-schema/"
   output_path: "reports/"
 
 validator:

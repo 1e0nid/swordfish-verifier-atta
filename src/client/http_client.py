@@ -24,7 +24,7 @@ class SwordfishHttpClient:
         auth = None
 
         if self.username and self.password:
-            auth = httpx.AsyncAuth(httpx.BasicAuth(self.username, self.password))
+            auth = httpx.BasicAuth(self.username, self.password)
 
         self.client = httpx.AsyncClient(
             base_url = self.base_url,
