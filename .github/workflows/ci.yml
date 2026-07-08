@@ -1,0 +1,35 @@
+name: Swordfish Verifier CI
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Забираем код из репозитория
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+    # 2. Разворачиваем Python
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip' # Ускоряет повторные сборки за счет кэша
+
+    # 3. Ставим зависимости проекта + инструменты тестирования
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pytest pytest-asyncio pytest-mock pytest-cov httpx
+
+    # 4. Запускаем тесты с выводом таблицы покрытия в логи GitHub!
+    - name: Run pytest suite with coverage
+      run: |
+        pytest --cov=src --cov-report=term-missing

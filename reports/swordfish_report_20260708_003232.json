@@ -1,0 +1,630 @@
+{
+    "metadata": {
+        "timestamp": "2026-07-07T21:32:32.973940+00:00",
+        "emulator_url": "http://127.0.0.1:8080/",
+        "specification_version": "Swordfish v1.2.9"
+    },
+    "summary": {
+        "total_checks": 78,
+        "pass_count": 70,
+        "fail_count": 8,
+        "not_supported_count": 0
+    },
+    "detailed_results": [
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1",
+            "check_type": "ENDPOINT_AVAILABILITY",
+            "status": "PASS",
+            "message": "Проверка доступности ручки (схема отсутствует в data/). Статус: HTTP 200"
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService/Sessions",
+            "check_type": "ENDPOINT_AVAILABILITY",
+            "status": "FAIL",
+            "message": "Проверка доступности ручки (схема отсутствует в data/). Статус: HTTP 401"
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Registries",
+            "check_type": "ENDPOINT_AVAILABILITY",
+            "status": "FAIL",
+            "message": "Проверка доступности ручки (схема отсутствует в data/). Статус: HTTP 404"
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService",
+            "check_type": "ENDPOINT_AVAILABILITY",
+            "status": "FAIL",
+            "message": "Проверка доступности ручки (схема отсутствует в data/). Статус: HTTP 404"
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Storage",
+            "check_type": "ENDPOINT_AVAILABILITY",
+            "status": "FAIL",
+            "message": "Проверка доступности ручки (схема отсутствует в data/). Статус: HTTP 401"
+        },
+        {
+            "resource": "Chassis",
+            "endpoint": "/redfish/v1/Chassis",
+            "check_type": "ENDPOINT_AVAILABILITY",
+            "status": "FAIL",
+            "message": "Проверка доступности ручки (схема отсутствует в data/). Статус: HTTP 404"
+        },
+        {
+            "resource": "Fabric",
+            "endpoint": "/redfish/v1/Fabrics",
+            "check_type": "ENDPOINT_AVAILABILITY",
+            "status": "FAIL",
+            "message": "Проверка доступности ручки (схема отсутствует в data/). Статус: HTTP 404"
+        },
+        {
+            "resource": "Manager",
+            "endpoint": "/redfish/v1/Managers",
+            "check_type": "ENDPOINT_AVAILABILITY",
+            "status": "FAIL",
+            "message": "Проверка доступности ручки (схема отсутствует в data/). Статус: HTTP 404"
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "check_type": "ENDPOINT_AVAILABILITY",
+            "status": "FAIL",
+            "message": "Эндпоинт недоступен. Код ответа: 401. Ошибка: None"
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1",
+            "method": "POST",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод POST (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1",
+            "method": "PUT",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PUT (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1",
+            "method": "DELETE",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод DELETE (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1",
+            "method": "PATCH",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PATCH (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService/Sessions",
+            "method": "POST",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод POST (Код: 401)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService/Sessions",
+            "method": "PUT",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PUT (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService/Sessions",
+            "method": "DELETE",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод DELETE (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService/Sessions",
+            "method": "PATCH",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PATCH (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Registries",
+            "method": "POST",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод POST (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Registries",
+            "method": "PUT",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PUT (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Registries",
+            "method": "DELETE",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод DELETE (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Registries",
+            "method": "PATCH",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PATCH (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService",
+            "method": "POST",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод POST (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService",
+            "method": "PUT",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PUT (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService",
+            "method": "DELETE",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод DELETE (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/SessionService",
+            "method": "PATCH",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PATCH (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Storage",
+            "method": "POST",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод POST (Код: 401)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Storage",
+            "method": "PUT",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PUT (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Storage",
+            "method": "DELETE",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод DELETE (Код: 404)."
+        },
+        {
+            "resource": "ServiceRoot",
+            "endpoint": "/redfish/v1/Storage",
+            "method": "PATCH",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PATCH (Код: 404)."
+        },
+        {
+            "resource": "Chassis",
+            "endpoint": "/redfish/v1/Chassis",
+            "method": "POST",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод POST (Код: 404)."
+        },
+        {
+            "resource": "Chassis",
+            "endpoint": "/redfish/v1/Chassis",
+            "method": "PUT",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PUT (Код: 404)."
+        },
+        {
+            "resource": "Chassis",
+            "endpoint": "/redfish/v1/Chassis",
+            "method": "DELETE",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод DELETE (Код: 404)."
+        },
+        {
+            "resource": "Chassis",
+            "endpoint": "/redfish/v1/Chassis",
+            "method": "PATCH",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PATCH (Код: 404)."
+        },
+        {
+            "resource": "Fabric",
+            "endpoint": "/redfish/v1/Fabrics",
+            "method": "POST",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод POST (Код: 404)."
+        },
+        {
+            "resource": "Fabric",
+            "endpoint": "/redfish/v1/Fabrics",
+            "method": "PUT",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PUT (Код: 404)."
+        },
+        {
+            "resource": "Fabric",
+            "endpoint": "/redfish/v1/Fabrics",
+            "method": "DELETE",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод DELETE (Код: 404)."
+        },
+        {
+            "resource": "Fabric",
+            "endpoint": "/redfish/v1/Fabrics",
+            "method": "PATCH",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PATCH (Код: 404)."
+        },
+        {
+            "resource": "Manager",
+            "endpoint": "/redfish/v1/Managers",
+            "method": "POST",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод POST (Код: 404)."
+        },
+        {
+            "resource": "Manager",
+            "endpoint": "/redfish/v1/Managers",
+            "method": "PUT",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PUT (Код: 404)."
+        },
+        {
+            "resource": "Manager",
+            "endpoint": "/redfish/v1/Managers",
+            "method": "DELETE",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод DELETE (Код: 404)."
+        },
+        {
+            "resource": "Manager",
+            "endpoint": "/redfish/v1/Managers",
+            "method": "PATCH",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PATCH (Код: 404)."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод POST (Код: 401)."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "PUT",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PUT (Код: 404)."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "DELETE",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод DELETE (Код: 404)."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "PATCH",
+            "check_type": "FUZZING_HTTP_METHOD",
+            "status": "PASS",
+            "message": "Сервер отклонил метод PATCH (Код: 404)."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_MALFORMED_JSON",
+            "status": "PASS",
+            "message": "Защита ОК: Передача массива вместо объекта. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Actions]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Actions. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [ClassesOfService]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля ClassesOfService. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [ClientEndpointGroups]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля ClientEndpointGroups. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Connections]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Connections. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [ConsistencyGroups]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля ConsistencyGroups. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [DataProtectionLoSCapabilities]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля DataProtectionLoSCapabilities. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [DataSecurityLoSCapabilities]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля DataSecurityLoSCapabilities. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [DataStorageLoSCapabilities]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля DataStorageLoSCapabilities. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [DefaultClassOfService]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля DefaultClassOfService. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Description]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Description. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Drives]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Drives. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [EndpointGroups]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля EndpointGroups. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Endpoints]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Endpoints. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [FileSystems]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля FileSystems. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [IOConnectivityLoSCapabilities]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля IOConnectivityLoSCapabilities. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [IOPerformanceLoSCapabilities]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля IOPerformanceLoSCapabilities. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [IOStatistics]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля IOStatistics. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Id]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Id. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Identifier]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Identifier. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [LinesOfService]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля LinesOfService. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Links]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Links. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Metrics]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Metrics. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Name]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Name. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Oem]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Oem. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Redundancy]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Redundancy. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [ServerEndpointGroups]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля ServerEndpointGroups. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [SpareResourceSets]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля SpareResourceSets. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Status]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Status. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [StorageGroups]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля StorageGroups. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [StoragePools]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля StoragePools. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [StorageSubsystems]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля StorageSubsystems. Код 401."
+        },
+        {
+            "resource": "StorageService",
+            "endpoint": "/redfish/v1/StorageServices",
+            "method": "POST",
+            "check_type": "FUZZING_TYPE_MISMATCH [Volumes]",
+            "status": "PASS",
+            "message": "Защита ОК: Подмена типа поля Volumes. Код 401."
+        }
+    ]
+}
