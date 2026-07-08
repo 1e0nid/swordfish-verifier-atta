@@ -2,9 +2,9 @@ name: Swordfish Verifier CI
 
 on:
   push:
-    branches: [ main, master, dev ]
+    branches: [ '*' ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ '*' ]
 
 jobs:
   run-tests:
