@@ -88,6 +88,10 @@ pyOpenSSL==24.2.1
 pyparted==3.13.0
 pyserial==3.5
 PySocks==1.7.1
+pytest==8.1.1
+pytest-asyncio==0.23.6
+pytest-cov==5.0.0
+pytest-mock==3.14.0
 python-augeas==1.1.0
 python-dateutil==2.8.2
 python-dotenv==1.2.1
@@ -108,8 +112,6 @@ ROPGadget==7.4
 rpm==4.20.1
 rpyc==6.0.1
 s3transfer==0.12.0
-selinux @ file:///builddir/build/BUILD/libselinux-3.7-build/libselinux-3.7/src
-sepolicy @ file:///builddir/build/BUILD/policycoreutils-3.7-build/selinux-3.7/python/sepolicy
 setools==4.5.1
 setuptools==69.2.0
 simpleaudio==1.0.4
